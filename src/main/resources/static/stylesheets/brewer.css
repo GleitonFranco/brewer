@@ -1,0 +1,57 @@
+
+/* 
+UTILITY 
+*/
+
+.bw-glyphicon-large {
+	font-size: 18px;
+}
+
+
+
+
+/* 
+COMPONENTS 
+*/
+
+.bw-field-action {
+	display: flex;
+}
+
+.bw-field-action__icon {
+	margin: 6px	0 0 5px;
+}
+
+
+
+/* UPLOAD */
+
+.bw-upload {
+	padding: 15px;
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	background: #fafafa;
+	text-align: centrer;
+}
+
+.bw-upload-form-file {
+	display: inline-black;
+	vertical-align: middle;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 1px;
+}
+
+.bw-upload-form-file > input[type=file] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.bw-required > .control-label:after {
+	content: "*";
+}

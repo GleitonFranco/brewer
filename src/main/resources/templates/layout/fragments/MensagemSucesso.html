@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+
+<div class="alert alert-success alert-dismissible" th:if="${not #strings.isEmpty(mensagem)}">
+	<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+	<i class="fa fa-exclamation-circle"></i><span th:text="${mensagem}"></span>
+</div>
+
+</html>
