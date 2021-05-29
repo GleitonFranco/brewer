@@ -69,6 +69,10 @@ public class CervejasController {
 	@GetMapping
     public ModelAndView pesquisar() {
 	    final ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
+	    mv.addObject("estilos", this.estilos.findAll());
+	    mv.addObject("origens", Origem.values());
+        mv.addObject("sabores", Sabor.values());
+        mv.addObject("cervejas", this.cervejas.findAll());
 	    return mv;
     }
 	
