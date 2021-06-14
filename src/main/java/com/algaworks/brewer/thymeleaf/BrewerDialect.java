@@ -3,6 +3,7 @@ package com.algaworks.brewer.thymeleaf;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.algaworks.brewer.thymeleaf.processor.OrderElementTagProcessor;
 import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
@@ -19,6 +20,7 @@ public class BrewerDialect extends AbstractProcessorDialect {
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeProcessor(dialectPrefix));
+		processadores.add(new OrderElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 

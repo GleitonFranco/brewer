@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,5 +73,28 @@ public class FotosStorageLocal implements FotosStorage {
 			throw new RuntimeException("Deu ruim na foto! :o", e);
 		}
 	}
+
+    @Override
+    public void salvarMesmo(String nome) {
+        try {
+            Files.move(this.localTemporario.resolve(nome), this.local.resolve(nome));
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao mover foto para o destino final ", e);
+        }
+        try {
+            Thumbnails.of(this.local.resolve(nome).toString()).size(40, 68).toFiles(Rename.PREFIX_HYPHEN_THUMBNAIL);
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao criar thumbnail da foto no destino final ", e);
+        }
+    }
+
+    @Override
+    public byte[] recuperarFotoMesmo(String nome) {
+        try {
+            return Files.readAllBytes(this.local.resolve(nome));
+        } catch (IOException e) {
+            throw new RuntimeException("Deu ruim na foto! :o", e);
+        }
+    }
 
 }

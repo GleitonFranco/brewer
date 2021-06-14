@@ -2,16 +2,18 @@ package com.algaworks.brewer.controller;
 
 import javax.validation.Valid;
 
+import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.repository.filter.EstiloFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,11 +21,18 @@ import com.algaworks.brewer.exception.CadastroEstiloException;
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.service.CadastroEstiloService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/estilos")
 public class EstilosController {
 	@Autowired
 	private CadastroEstiloService service;
+
+	@Autowired
+	private Estilos estilos;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Estilo estilo) {
@@ -62,4 +71,12 @@ public class EstilosController {
 		return ResponseEntity.ok(estiloSalvo);
 	}
 
+	@GetMapping
+    public ModelAndView pesquisar(EstiloFilter estiloFilter, @PageableDefault(size = 2) Pageable pageable) {
+	    final ModelAndView mv = new ModelAndView("cerveja/PesquisaEstilos");
+        Page<Estilo> pagina = this.estilos.filtrar(estiloFilter, pageable);
+		mv.addObject("estilos", pagina);
+        System.out.println("***** "+ pagina.getNumber() + " * " + pagina.getTotalPages() + " * " + pagina.getTotalElements() + " * " + pagina.getNumberOfElements());
+	    return mv;
+    }
 }

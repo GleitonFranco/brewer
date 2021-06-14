@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.algaworks.brewer.validation.Sku;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "cerveja")
@@ -143,7 +144,10 @@ public class Cerveja {
 	public void preProcessa() {
 		this.sku = this.sku.toUpperCase();
 	}
-	
+
+	public String getFotoOuMock() {
+		return StringUtils.isEmpty(this.foto) ? "cerveja-mock.png" : this.foto;
+	}
 }
 // mvn exec:java -Dexec.mainClass="org.hsqldb.Server" -Dexec.args="-database.0 file:/home/gleiton/eclipse-workspace/brewer/src/main/resources/db/hsql/brewer -dbname.0 xdb"
 // mvn exec:java -Dexec.mainClass="org.hsqldb.util.DatabaseManagerSwing" -Dexec.args="--url jdbc:hsqldb:hsql://localhost/xdb"

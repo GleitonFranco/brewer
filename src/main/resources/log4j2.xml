@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
 
-<Appenders>
-	<Console name="Console" target="SYSTEM_OUT">
-	  <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36}: %msg%n"/>
-	</Console>
-</Appenders>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+		  <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36}: %msg%n"/>
+		</Console>
+        <Console name="Console-Extract" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} *********** %msg%n"/>
+        </Console>
+	</Appenders>
 
-<Loggers>
+	<Loggers>
+		<Logger name="com.algaworks.brewer.controller" level="info"/>
+		<!--<Logger name="org.hibernate.SQL" level="info"/>-->
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+            <AppenderRef ref="Console-Extract"/>
+        </Logger>
 
-	<Logger name="com.algaworks.brewer.controller" level="info"/>
-	<Logger name="org.hibernate.SQL" level="info"/>
+		<Root level="error">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
 
-	<Root level="error">
-		<AppenderRef ref="Console"/>
-	</Root>
-</Loggers>
 </Configuration>

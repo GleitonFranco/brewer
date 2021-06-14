@@ -21,7 +21,7 @@ import com.algaworks.brewer.repository.Cervejas;
 
 @Configuration
 @EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
-//@ComponentScan(basePackageClasses = Cervejas.class)
+@ComponentScan(basePackageClasses = Cervejas.class)
 @EnableTransactionManagement 
 public class JPAConfig {
 
