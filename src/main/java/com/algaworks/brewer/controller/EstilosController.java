@@ -74,7 +74,7 @@ public class EstilosController {
 	@GetMapping
     public ModelAndView pesquisar(EstiloFilter estiloFilter, @PageableDefault(size = 2) Pageable pageable) {
 	    final ModelAndView mv = new ModelAndView("cerveja/PesquisaEstilos");
-        Page<Estilo> pagina = this.estilos.filtrar(estiloFilter, pageable);
+        Page<Estilo> pagina = this.estilos.findAll(pageable);// .filtrar(estiloFilter, pageable);
 		mv.addObject("estilos", pagina);
         System.out.println("***** "+ pagina.getNumber() + " * " + pagina.getTotalPages() + " * " + pagina.getTotalElements() + " * " + pagina.getNumberOfElements());
 	    return mv;

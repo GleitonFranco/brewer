@@ -1,33 +1,29 @@
 package com.algaworks.brewer.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import com.algaworks.brewer.controller.page.PageWrapper;
-import com.algaworks.brewer.repository.filter.CervejaFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
 import com.algaworks.brewer.repository.Cervejas;
 import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.service.CadastroCervejaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/cervejas")
@@ -68,8 +64,15 @@ public class CervejasController {
 		}
 		cerveja.setEstilo(this.estilos.findOne(cerveja.getEstilo().getCodigo()));
 		cadastroCervejaService.salvar(cerveja);
-		attributes.addFlashAttribute("mensagem", "OK: Cerveja salva com sucesso:"+cerveja.getSku());
+		String okMsg = "OK: Cerveja salva com sucesso:";
+		printMsg(okMsg);
+		attributes.addFlashAttribute("mensagem", okMsg +cerveja.getSku());
 		return new ModelAndView("redirect:/cervejas/novo");
+	}
+
+	private void printMsg(String okMsg) {
+		System.out.println(okMsg);
+		System.out.println(okMsg);
 	}
 
 	@GetMapping

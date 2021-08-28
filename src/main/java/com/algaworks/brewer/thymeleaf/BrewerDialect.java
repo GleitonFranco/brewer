@@ -20,7 +20,7 @@ public class BrewerDialect extends AbstractProcessorDialect {
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeProcessor(dialectPrefix));
-		processadores.add(new OrderElementTagProcessor(dialectPrefix));
+//		processadores.add(new OrderElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 
